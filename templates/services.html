@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Services | Namutumba Golden Harvest SACCO{% endblock %}
+
+{% block content %}
+<section class="page-hero small-hero">
+    <div class="container">
+        <p class="eyebrow">Our services</p>
+        <h1>Practical support for farmers, traders and growing businesses</h1>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row g-4">
+            {% for item in service_items %}
+            <div class="col-md-6 col-lg-4">
+                <div class="info-card h-100">
+                    <div class="icon-box">{{ item.icon }}</div>
+                    <h4>{{ item.title }}</h4>
+                    <p>{{ item.description }}</p>
+                    <ul class="mini-list">
+                        {% for point in item.points %}
+                        <li>{{ point }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

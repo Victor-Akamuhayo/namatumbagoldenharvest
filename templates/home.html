@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+
+{% block title %}Home | Namutumba Golden Harvest SACCO{% endblock %}
+
+{% block content %}
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7">
+                <p class="eyebrow">Member-owned agricultural cooperative</p>
+                <h1>NAMUTUMBA GOLDEN HARVEST</h1>
+                <h2>Farmers and Traders SACCO</h2>
+                <p class="lead">Together We Grow, Together We Prosper.</p>
+                <div class="hero-actions">
+                    <a class="btn btn-primary btn-lg" href="{% url 'membership' %}">Become a Member</a>
+                    <a class="btn btn-outline-light btn-lg" href="{% url 'services' %}">Explore Our Services</a>
+                </div>
+                <div class="hero-mini-stats">
+                    {% for stat in stats %}
+                    <div>
+                        <strong>{{ stat.value }}</strong>
+                        <span>{{ stat.label }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="hero-card">
+                    <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=900&q=80" alt="Seedlings and agriculture" class="hero-image" />
+                    <h3>Why farmers trust us</h3>
+                    <ul>
+                        <li>Affordable credit for agricultural growth</li>
+                        <li>Practical extension and farming advisory support</li>
+                        <li>Quality farm inputs and planting materials</li>
+                        <li>Market access and trade support for products</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-heading">
+            <p class="eyebrow text-primary">Our focus</p>
+            <h3>Strong services for productive farming and business growth</h3>
+        </div>
+        <div class="row g-4">
+            {% for service in service_highlights %}
+            <div class="col-md-6 col-lg-4">
+                <div class="info-card h-100">
+                    <div class="icon-box">{{ service.icon }}</div>
+                    <h4>{{ service.title }}</h4>
+                    <p>{{ service.description }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section section-alt">
+    <div class="container">
+        <div class="section-heading">
+            <p class="eyebrow text-primary">What we deal in</p>
+            <h3>Key crops and agricultural products we support</h3>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4"><div class="tag-card">Maize</div></div>
+            <div class="col-md-4"><div class="tag-card">Groundnuts</div></div>
+            <div class="col-md-4"><div class="tag-card">Beans</div></div>
+            <div class="col-md-4"><div class="tag-card">Sunflower</div></div>
+            <div class="col-md-4"><div class="tag-card">Soybeans</div></div>
+            <div class="col-md-4"><div class="tag-card">Cassava</div></div>
+            <div class="col-md-4"><div class="tag-card">Rice</div></div>
+            <div class="col-md-4"><div class="tag-card">Sorghum & Millet</div></div>
+            <div class="col-md-4"><div class="tag-card">Vegetables & more</div></div>
+        </div>
+        <div class="text-center mt-4">
+            <a class="btn btn-primary" href="{% url 'products' %}">View all products</a>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <img src="https://images.unsplash.com/photo-1464226184884-fa52ac9fcf4b?auto=format&fit=crop&w=900&q=80" alt="Seedling field" class="story-image" />
+            </div>
+            <div class="col-lg-6">
+                <p class="eyebrow text-primary">Why Join Us</p>
+                <h3>We help members grow stronger farms and stronger futures.</h3>
+                <ul class="check-list">
+                    <li>Member ownership and active participation in a united cooperative</li>
+                    <li>Affordable credits and practical support for productive farming</li>
+                    <li>Better market access, input support and financial planning</li>
+                    <li>Stronger community action and shared prosperity</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section section-alt">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <p class="eyebrow text-primary">Our purpose</p>
+                <h3>Building resilient livelihoods for farmers and traders</h3>
+                <p>We are committed to helping members improve productivity, strengthen financial stability, increase income and access the tools needed to grow sustainable agricultural enterprises.</p>
+                <ul class="check-list">
+                    <li>Support for savings and dependable cash flow</li>
+                    <li>Access to affordable agricultural credit</li>
+                    <li>Professional extension advice and training</li>
+                    <li>Improved farmer-market linkages</li>
+                </ul>
+            </div>
+            <div class="col-lg-6">
+                <div class="feature-box">
+                    <h4>Member benefits</h4>
+                    <div class="feature-item">
+                        <strong>1.</strong>
+                        <span>Access to savings and credit opportunities</span>
+                    </div>
+                    <div class="feature-item">
+                        <strong>2.</strong>
+                        <span>Business and farming support services</span>
+                    </div>
+                    <div class="feature-item">
+                        <strong>3.</strong>
+                        <span>Reliable information and guidance for growth</span>
+                    </div>
+                    <div class="feature-item">
+                        <strong>4.</strong>
+                        <span>Community-driven collaboration and prosperity</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-heading">
+            <p class="eyebrow text-primary">Latest news</p>
+            <h3>Announcements, training and opportunities</h3>
+        </div>
+        <div class="row g-4">
+            {% for item in news_items %}
+            <div class="col-md-4">
+                <div class="info-card h-100">
+                    <div class="mini-image" style="background-image:url('{{ item.image_url|default:'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=900&q=80' }}');"></div>
+                    <h4>{{ item.title }}</h4>
+                    <p>{{ item.summary }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p>No announcements yet. Check back soon.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-heading">
+            <p class="eyebrow text-primary">Gallery</p>
+            <h3>Snapshots of SACCO activities and community life</h3>
+        </div>
+        <div class="row g-3">
+            {% for image in gallery_items %}
+            <div class="col-md-3">
+                <div class="gallery-thumb" style="background-image:url('{{ image.image_url }}');"></div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center">
+                <p>Gallery updates will appear here.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row g-5 align-items-center">
+            <div class="col-lg-6">
+                <p class="eyebrow text-primary">Our Vision & Mission</p>
+                <h3>To build a resilient and prosperous agricultural community.</h3>
+                <p>Our mission is to empower farmers and traders by providing practical financial, production and market support that enables sustainable livelihoods and economic growth.</p>
+                <p>Our vision is to be a strong, trusted and impactful cooperative that helps members achieve lasting prosperity.</p>
+            </div>
+            <div class="col-lg-6">
+                <div class="feature-box">
+                    <h4>Our focus</h4>
+                    <div class="feature-item"><strong>1</strong><span>Productive and resilient farming</span></div>
+                    <div class="feature-item"><strong>2</strong><span>Accessible finance and savings support</span></div>
+                    <div class="feature-item"><strong>3</strong><span>Quality inputs and planting materials</span></div>
+                    <div class="feature-item"><strong>4</strong><span>Fair market opportunities and growth</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section premium-cta-section">
+    <div class="container">
+        <div class="premium-cta-card">
+            <div>
+                <p class="eyebrow text-primary">Ready to grow with us?</p>
+                <h3>Join a SACCO built around your progress, prosperity and productive communities.</h3>
+            </div>
+            <div class="cta-actions">
+                <a class="btn btn-primary btn-lg" href="{% url 'membership' %}">Become a Member</a>
+                <a class="btn btn-outline-primary btn-lg" href="{% url 'contact' %}">Talk to Us</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

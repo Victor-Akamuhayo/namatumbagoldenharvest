@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block title %}Membership | Namutumba Golden Harvest SACCO{% endblock %}
+
+{% block content %}
+<section class="page-hero small-hero">
+    <div class="container">
+        <p class="eyebrow">Membership</p>
+        <h1>Grow with a SACCO that understands your goals</h1>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row g-5 align-items-start">
+            <div class="col-lg-6">
+                <div class="feature-box">
+                    <h4>Why join us?</h4>
+                    <div class="feature-item">
+                        <strong>✓</strong>
+                        <span>Member ownership and active participation in a local cooperative</span>
+                    </div>
+                    <div class="feature-item">
+                        <strong>✓</strong>
+                        <span>Affordable agricultural and business loan opportunities</span>
+                    </div>
+                    <div class="feature-item">
+                        <strong>✓</strong>
+                        <span>Increased productivity through practical farming support</span>
+                    </div>
+                    <div class="feature-item">
+                        <strong>✓</strong>
+                        <span>Better markets, stronger trading opportunities and financial security</span>
+                    </div>
+                    <div class="feature-item">
+                        <strong>✓</strong>
+                        <span>Stronger community partnership and shared prosperity</span>
+                    </div>
+                </div>
+                <div class="feature-box mt-4">
+                    <h4>Membership requirements</h4>
+                    <p>Requirements should be confirmed with the SACCO’s approved policy and membership procedures before publication. In general, members are expected to:</p>
+                    <ul class="check-list">
+                        <li>Be a farmer, trader or community member approved for membership</li>
+                        <li>Provide valid identification and contact details</li>
+                        <li>Agree to SACCO membership obligations and participation</li>
+                        <li>Complete onboarding and registration procedures</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <form method="post" class="form-box">
+                    {% csrf_token %}
+                    <h3>Membership enquiry form</h3>
+                    <div class="row g-3">
+                        <div class="col-md-6">{{ form.full_name.label_tag }} {{ form.full_name }}</div>
+                        <div class="col-md-6">{{ form.gender.label_tag }} {{ form.gender }}</div>
+                        <div class="col-md-6">{{ form.phone.label_tag }} {{ form.phone }}</div>
+                        <div class="col-md-6">{{ form.email.label_tag }} {{ form.email }}</div>
+                        <div class="col-md-6">{{ form.district.label_tag }} {{ form.district }}</div>
+                        <div class="col-md-6">{{ form.sub_county.label_tag }} {{ form.sub_county }}</div>
+                        <div class="col-md-6">{{ form.village.label_tag }} {{ form.village }}</div>
+                        <div class="col-md-6">{{ form.occupation.label_tag }} {{ form.occupation }}</div>
+                        <div class="col-md-6">{{ form.farmer_type.label_tag }} {{ form.farmer_type }}</div>
+                        <div class="col-md-6">{{ form.preferred_contact.label_tag }} {{ form.preferred_contact }}</div>
+                        <div class="col-12">{{ form.message.label_tag }} {{ form.message }}</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Send Enquiry</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

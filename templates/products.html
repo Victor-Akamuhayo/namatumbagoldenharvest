@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}What We Deal In | Namutumba Golden Harvest SACCO{% endblock %}
+
+{% block content %}
+<section class="page-hero small-hero">
+    <div class="container">
+        <p class="eyebrow">What we deal in</p>
+        <h1>Supporting the crops, products and livelihoods that grow our communities</h1>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row g-4">
+            {% for item in product_categories %}
+            <div class="col-md-6 col-lg-4">
+                <div class="product-card h-100">
+                    <img class="product-image" src="{{ item.image_url }}" alt="{{ item.image_alt }}" loading="lazy" />
+                    <div class="product-content">
+                        <h4>{{ item.name }}</h4>
+                        <p>We support members involved in {{ item.name|lower }} production, trade and value-chain development.</p>
+                        <a class="image-credit" href="{{ item.image_source }}" target="_blank" rel="noreferrer">Image source: Wikimedia Commons</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

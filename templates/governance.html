@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Governance | Namutumba Golden Harvest SACCO{% endblock %}
+
+{% block content %}
+<section class="page-hero small-hero">
+    <div class="container">
+        <p class="eyebrow">Governance</p>
+        <h1>Ownership, governance, management and service delivery</h1>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-6">
+                <div class="feature-box">
+                    <h4>Governance structure</h4>
+                    <div class="feature-item"><strong>1</strong><span>Founder / Initiating Owner</span></div>
+                    <div class="feature-item"><strong>2</strong><span>Board / Authorised Governing Body</span></div>
+                    <div class="feature-item"><strong>3</strong><span>Director / Management</span></div>
+                    <div class="feature-item"><strong>4</strong><span>Executives / Programme Teams</span></div>
+                    <div class="feature-item"><strong>5</strong><span>Staff / Field Representatives</span></div>
+                    <div class="feature-item"><strong>6</strong><span>Members / Farmers / Participating Traders</span></div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="feature-box">
+                    <h4>Governance principle</h4>
+                    <p>The SACCO’s exact powers, responsibilities and governance arrangements should be governed by the Constitution, bylaws, appointment letters, Board resolutions, policies and applicable law. This page presents a general overview without exposing sensitive internal governance details.</p>
+                    <ul class="check-list">
+                        {% for point in governance_points %}
+                        <li>{{ point }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

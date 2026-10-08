@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block title %}Contact | Namutumba Golden Harvest SACCO{% endblock %}
+
+{% block content %}
+<section class="page-hero small-hero">
+    <div class="container">
+        <p class="eyebrow">Contact us</p>
+        <h1>We are ready to support your farming and trading goals</h1>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-lg-5">
+                <div class="feature-box">
+                    <h4>Get in touch</h4>
+                    <div class="contact-item">
+                        <strong>WhatsApp:</strong>
+                        <span>0789 424 972</span>
+                    </div>
+                    <div class="contact-item">
+                        <strong>Calls:</strong>
+                        <span>0787 772 162</span>
+                    </div>
+                    <div class="contact-item">
+                        <strong>Calls:</strong>
+                        <span>0705 586 195</span>
+                    </div>
+                    <div class="contact-item">
+                        <strong>Calls:</strong>
+                        <span>0789 424 972</span>
+                    </div>
+                    <div class="contact-item">
+                        <strong>Email:</strong>
+                        <span><a href="mailto:goldenharvestsacco@gmail.com">goldenharvestsacco@gmail.com</a></span>
+                    </div>
+                    <div class="contact-item">
+                        <strong>Location:</strong>
+                        <span>Namutumba District, Uganda</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <form method="post" class="form-box">
+                    {% csrf_token %}
+                    <h3>Send us a message</h3>
+                    <div class="row g-3">
+                        <div class="col-md-6">{{ form.name.label_tag }} {{ form.name }}</div>
+                        <div class="col-md-6">{{ form.phone.label_tag }} {{ form.phone }}</div>
+                        <div class="col-md-6">{{ form.email.label_tag }} {{ form.email }}</div>
+                        <div class="col-md-6">{{ form.subject.label_tag }} {{ form.subject }}</div>
+                        <div class="col-12">{{ form.message.label_tag }} {{ form.message }}</div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mt-3">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

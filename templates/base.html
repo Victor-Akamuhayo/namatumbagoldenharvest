@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Namutumba Golden Harvest SACCO{% endblock %}</title>
+    <meta name="description" content="Namutumba Golden Harvest Farmers and Traders SACCO supports farmers and traders with savings, loans, inputs, extension services and market access." />
+    <meta name="theme-color" content="#163c2f" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Namutumba Golden Harvest SACCO" />
+    <meta property="og:description" content="Together we grow, together we prosper. Supporting farmers and traders in Namutumba, Uganda." />
+    <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'images/namutumba-golden-harvest-logo.png' %}" />
+    <meta property="og:image:alt" content="Namutumba Golden Harvest Farmers and Traders SACCO logo" />
+    <link rel="icon" type="image/png" href="{% static 'images/namutumba-golden-harvest-logo.png' %}" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+</head>
+<body>
+    <header class="site-header">
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'home' %}">
+                    <img class="brand-logo" src="{% static 'images/namutumba-golden-harvest-logo.png' %}" alt="Namutumba Golden Harvest Farmers and Traders SACCO" />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="mainNav">
+                    <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+                        <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'about' %}">About Us</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'services' %}">Our Services</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'products' %}">What We Deal In</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'news' %}">News</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'gallery' %}">Gallery</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'contact' %}">Contact Us</a></li>
+                        <li class="nav-item"><a class="btn btn-primary ms-lg-2" href="{% url 'membership' %}">Become a Member</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        {% if messages %}
+            <div class="container mt-4">
+                {% for message in messages %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5>Namutumba Golden Harvest</h5>
+                    <p>Empowering farmers and traders through savings, affordable credit, extension services, quality inputs, and stronger market access.</p>
+                </div>
+                <div class="col-lg-4">
+                    <h5>Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="{% url 'about' %}">About Us</a></li>
+                        <li><a href="{% url 'services' %}">Our Services</a></li>
+                        <li><a href="{% url 'products' %}">What We Deal In</a></li>
+                        <li><a href="{% url 'news' %}">News & Announcements</a></li>
+                        <li><a href="{% url 'membership' %}">Membership</a></li>
+                        <li><a href="{% url 'contact' %}">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h5>Contact</h5>
+                    <ul class="footer-links">
+                        <li>Namutumba District, Uganda</li>
+                        <li>+256 700 000 000</li>
+                        <li>info@nghfts.org</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© {% now "Y" %} Namutumba Golden Harvest Farmers and Traders SACCO</p>
+                <p>“Together We Grow, Together We Prosper”</p>
+            </div>
+        </div>
+    </footer>
+
+    <a class="whatsapp-float" href="https://wa.me/256789424972" target="_blank" rel="noreferrer" aria-label="Chat on WhatsApp">
+        WhatsApp
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

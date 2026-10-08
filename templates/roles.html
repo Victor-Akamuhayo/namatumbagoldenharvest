@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}System Roles | Namutumba Golden Harvest SACCO{% endblock %}
+
+{% block content %}
+<section class="page-hero small-hero">
+    <div class="container">
+        <p class="eyebrow">System roles</p>
+        <h1>Clear separation between governance, management, operations and member access</h1>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="section-heading">
+            <p class="eyebrow text-primary">Role structure</p>
+            <h3>Operational roles for the SACCO</h3>
+        </div>
+        <div class="row g-4">
+            {% for role in role_list %}
+            <div class="col-md-6 col-lg-4">
+                <div class="info-card h-100">
+                    <div class="icon-box">{% if role.name == 'Member' %}👤{% elif role.name == 'Finance Officer' %}💰{% elif role.name == 'Loan Officer' %}📄{% elif role.name == 'Membership Officer' %}🧾{% elif role.name == 'Agricultural Officer' %}🌾{% elif role.name == 'Content Manager' %}📝{% else %}🛡️{% endif %}</div>
+                    <h4>{{ role.name }}</h4>
+                    <p>{{ role.description }}</p>
+                    <strong>Access:</strong>
+                    <p>{{ role.access }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section section-alt">
+    <div class="container">
+        <div class="feature-box">
+            <h4>Important access principle</h4>
+            <p>A member has access only to their own information. Internal staff roles are distinct from ownership and are assigned based on responsibilities within the SACCO’s governance and management model.</p>
+            <ul class="check-list">
+                <li>Super Admin: full system administration and oversight</li>
+                <li>SACCO Management: strategic leadership and governance support</li>
+                <li>Finance, Loan, Membership, Agricultural and Content roles: operational responsibilities</li>
+                <li>Member: personal account access only</li>
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock %}
