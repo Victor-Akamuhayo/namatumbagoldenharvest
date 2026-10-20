@@ -127,3 +127,19 @@ class GalleryImage(models.Model):
 
     class Meta:
         ordering = ['category', 'title']
+
+
+class ProductCategory(models.Model):
+    name = models.CharField(max_length=120, unique=True)
+    image_url = models.URLField()
+    image_alt = models.CharField(max_length=200)
+    image_source = models.URLField(blank=True)
+    description = models.TextField(blank=True)
+    display_order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['display_order', 'name']

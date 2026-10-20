@@ -36,7 +36,13 @@ $env:DATABASE_URL = "your-production-postgresql-url"
 python manage.py migrate
 ```
 
-Vercel's Django integration runs `collectstatic` during the build. The public deployment does not expose Django's internal admin route.
+After migrations, create the administrator account using the same production environment values:
+
+```powershell
+python manage.py createsuperuser
+```
+
+Then sign in at `/admin/`. Only trusted staff accounts should be granted admin access. Gallery images, news article images, and product images are managed there using public HTTPS image URLs; upload files to an image host first and paste their direct image URL into the relevant image URL field. Vercel's Django integration runs `collectstatic` during the build.
 
 ## Checks
 

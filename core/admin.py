@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import ContactEnquiry, GalleryImage, MembershipApplication, NewsArticle, SystemRole, UserRoleAssignment
+from .models import ContactEnquiry, GalleryImage, MembershipApplication, NewsArticle, ProductCategory, SystemRole, UserRoleAssignment
 
 
 @admin.register(ContactEnquiry)
@@ -27,6 +27,15 @@ class NewsArticleAdmin(admin.ModelAdmin):
 class GalleryImageAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'image_url')
     search_fields = ('title', 'category', 'caption')
+
+
+@admin.register(ProductCategory)
+class ProductCategoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'display_order', 'is_active')
+    list_editable = ('display_order', 'is_active')
+    search_fields = ('name', 'description')
+    list_filter = ('is_active',)
+    ordering = ('display_order', 'name')
 
 
 @admin.register(SystemRole)
