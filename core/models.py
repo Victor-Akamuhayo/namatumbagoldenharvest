@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.exceptions import ValidationError
 from django.db import models
 
 
@@ -106,8 +107,13 @@ class NewsArticle(models.Model):
     title = models.CharField(max_length=200)
     summary = models.TextField()
     body = models.TextField()
+    image_file = models.ImageField(upload_to='news/', blank=True)
     image_url = models.URLField(blank=True)
     published_at = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def image_display_url(self):
+        return self.image_file.url if self.image_file else self.image_url
 
     def __str__(self):
         return self.title
@@ -119,8 +125,17 @@ class NewsArticle(models.Model):
 class GalleryImage(models.Model):
     title = models.CharField(max_length=120)
     category = models.CharField(max_length=50)
-    image_url = models.URLField()
+    image_file = models.ImageField(upload_to='gallery/', blank=True)
+    image_url = models.URLField(blank=True)
     caption = models.TextField(blank=True)
+
+    @property
+    def image_display_url(self):
+        return self.image_file.url if self.image_file else self.image_url
+
+    def clean(self):
+        if not self.image_file and not self.image_url:
+            raise ValidationError({'image_file': 'Choose an image file or provide an image URL.'})
 
     def __str__(self):
         return self.title
@@ -131,12 +146,21 @@ class GalleryImage(models.Model):
 
 class ProductCategory(models.Model):
     name = models.CharField(max_length=120, unique=True)
-    image_url = models.URLField()
+    image_file = models.ImageField(upload_to='products/', blank=True)
+    image_url = models.URLField(blank=True)
     image_alt = models.CharField(max_length=200)
     image_source = models.URLField(blank=True)
     description = models.TextField(blank=True)
     display_order = models.PositiveIntegerField(default=0)
     is_active = models.BooleanField(default=True)
+
+    @property
+    def image_display_url(self):
+        return self.image_file.url if self.image_file else self.image_url
+
+    def clean(self):
+        if not self.image_file and not self.image_url:
+            raise ValidationError({'image_file': 'Choose an image file or provide an image URL.'})
 
     def __str__(self):
         return self.name

@@ -1,7 +1,12 @@
-from django.contrib.auth import get_user_model
-from django.test import TestCase
+from io import BytesIO
+from tempfile import TemporaryDirectory
 
-from .models import ProductCategory, SystemRole, UserRoleAssignment
+from django.contrib.auth import get_user_model
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.test import TestCase, override_settings
+from PIL import Image
+
+from .models import GalleryImage, ProductCategory, SystemRole, UserRoleAssignment
 
 
 class RoleModelTests(TestCase):
@@ -59,3 +64,46 @@ class WebsiteAdminContentTests(TestCase):
 
         self.assertEqual(response.status_code, 302)
         self.assertIn('/admin/login/', response.url)
+
+    def test_gallery_admin_add_form_has_a_local_file_picker(self):
+        admin_user = get_user_model().objects.create_superuser(
+            username='content-admin',
+            email='content@example.com',
+            password='test-password-123',
+        )
+        self.client.force_login(admin_user)
+
+        response = self.client.get('/admin/core/galleryimage/add/')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'name="image_file"')
+        self.assertContains(response, 'type="file"')
+
+    def test_gallery_admin_saves_a_uploaded_image_file(self):
+        admin_user = get_user_model().objects.create_superuser(
+            username='gallery-admin',
+            email='gallery@example.com',
+            password='test-password-123',
+        )
+        self.client.force_login(admin_user)
+        image_buffer = BytesIO()
+        Image.new('RGB', (2, 2), color='green').save(image_buffer, format='PNG')
+
+        with TemporaryDirectory() as media_directory:
+            with override_settings(MEDIA_ROOT=media_directory):
+                response = self.client.post(
+                    '/admin/core/galleryimage/add/',
+                    {
+                        'title': 'Uploaded seedling photo',
+                        'category': 'Seedlings',
+                        'image_file': SimpleUploadedFile(
+                            'seedling.png', image_buffer.getvalue(), content_type='image/png'
+                        ),
+                        'image_url': '',
+                        'caption': 'A test photo',
+                    },
+                )
+
+                self.assertEqual(response.status_code, 302)
+                gallery_image = GalleryImage.objects.get(title='Uploaded seedling photo')
+                self.assertTrue(gallery_image.image_file.storage.exists(gallery_image.image_file.name))

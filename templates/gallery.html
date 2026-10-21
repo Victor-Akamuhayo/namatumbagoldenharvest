@@ -16,7 +16,7 @@
             {% for image in images %}
             <div class="col-md-6 col-lg-4">
                 <div class="gallery-card">
-                    <div class="gallery-thumb large" style="background-image:url('{{ image.image_url }}');"></div>
+                    <div class="gallery-thumb large" style="background-image:url('{{ image.image_display_url }}');"></div>
                     <div class="gallery-copy">
                         <h4>{{ image.title }}</h4>
                         <p>{{ image.caption|default:image.category }}</p>

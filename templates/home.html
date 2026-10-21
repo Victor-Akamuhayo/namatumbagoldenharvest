@@ -152,7 +152,7 @@
             {% for item in news_items %}
             <div class="col-md-4">
                 <div class="info-card h-100">
-                    <div class="mini-image" style="background-image:url('{{ item.image_url|default:'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=900&q=80' }}');"></div>
+                    <div class="mini-image" style="background-image:url('{{ item.image_display_url|default:'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=900&q=80' }}');"></div>
                     <h4>{{ item.title }}</h4>
                     <p>{{ item.summary }}</p>
                 </div>
@@ -175,7 +175,7 @@
         <div class="row g-3">
             {% for image in gallery_items %}
             <div class="col-md-3">
-                <div class="gallery-thumb" style="background-image:url('{{ image.image_url }}');"></div>
+                <div class="gallery-thumb" style="background-image:url('{{ image.image_display_url }}');"></div>
             </div>
             {% empty %}
             <div class="col-12 text-center">

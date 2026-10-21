@@ -26,6 +26,7 @@ Vercel detects this Django project from `manage.py` and uses the WSGI applicatio
    - `DJANGO_SECRET_KEY`: a long, unique random secret.
    - `DJANGO_DEBUG`: `false`.
    - `DATABASE_URL`: the PostgreSQL connection URL from your database provider.
+   - `CLOUDINARY_URL`: Cloudinary's API environment URL, required for durable image uploads on Vercel.
 4. For custom domains, set `DJANGO_ALLOWED_HOSTS` to comma-separated hostnames without schemes, and set `DJANGO_CSRF_TRUSTED_ORIGINS` to comma-separated HTTPS origins. Vercel-provided deployment hostnames are added automatically.
 5. Apply database migrations against the configured production database before relying on contact and membership submissions:
 
@@ -42,7 +43,7 @@ After migrations, create the administrator account using the same production env
 python manage.py createsuperuser
 ```
 
-Then sign in at `/admin/`. Only trusted staff accounts should be granted admin access. Gallery images, news article images, and product images are managed there using public HTTPS image URLs; upload files to an image host first and paste their direct image URL into the relevant image URL field. Vercel's Django integration runs `collectstatic` during the build.
+Then sign in at `/admin/`. Only trusted staff accounts should be granted admin access. Gallery, news, and product image forms include a local file picker. On Vercel, uploaded files are stored in Cloudinary, so configure `CLOUDINARY_URL` before deploying; without it, Vercel will refuse production startup rather than save uploads to temporary storage. Existing image URLs continue to work. Vercel's Django integration runs `collectstatic` during the build.
 
 ## Checks
 

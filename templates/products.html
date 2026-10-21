@@ -16,7 +16,7 @@
             {% for item in product_categories %}
             <div class="col-md-6 col-lg-4">
                 <div class="product-card h-100">
-                    <img class="product-image" src="{{ item.image_url }}" alt="{{ item.image_alt }}" loading="lazy" />
+                    <img class="product-image" src="{{ item.image_display_url }}" alt="{{ item.image_alt }}" loading="lazy" />
                     <div class="product-content">
                         <h4>{{ item.name }}</h4>
                         {% if item.description %}
