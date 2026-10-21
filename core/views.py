@@ -2,10 +2,11 @@ from django.contrib import messages
 from django.shortcuts import redirect, render
 
 from .forms import ContactForm, MembershipApplicationForm
-from .models import GalleryImage, NewsArticle, ProductCategory
+from .models import GalleryImage, HomePageHero, NewsArticle, ProductCategory
 
 
 def home(request):
+    hero = HomePageHero.objects.first()
     service_highlights = [
         {
             'icon': '🌾',
@@ -38,14 +39,14 @@ def home(request):
             'description': 'Savings culture and reliable financial planning to help members build resilience.',
         },
     ]
-    stats = [
+    stats = hero.stats if hero else [
         {'value': '6', 'label': 'Core services'},
         {'value': '100%', 'label': 'Member-centered'},
         {'value': '24/7', 'label': 'Support mindset'},
     ]
     news_items = NewsArticle.objects.all()[:3]
     gallery_items = GalleryImage.objects.all()[:4]
-    return render(request, 'home.html', {'service_highlights': service_highlights, 'stats': stats, 'news_items': news_items, 'gallery_items': gallery_items})
+    return render(request, 'home.html', {'service_highlights': service_highlights, 'stats': stats, 'news_items': news_items, 'gallery_items': gallery_items, 'hero': hero})
 
 
 def about(request):

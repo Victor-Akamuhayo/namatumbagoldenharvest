@@ -167,3 +167,40 @@ class ProductCategory(models.Model):
 
     class Meta:
         ordering = ['display_order', 'name']
+
+
+class HomePageHero(models.Model):
+    eyebrow = models.CharField(max_length=120, default='Member-owned agricultural cooperative')
+    title = models.CharField(max_length=160, default='NAMUTUMBA GOLDEN HARVEST')
+    subtitle = models.CharField(max_length=160, default='Farmers and Traders SACCO')
+    tagline = models.CharField(max_length=240, default='Together We Grow, Together We Prosper.')
+    background_image = models.ImageField(upload_to='hero/', blank=True)
+    primary_button_text = models.CharField(max_length=80, default='Become a Member')
+    primary_button_url = models.CharField(max_length=200, default='/membership/')
+    secondary_button_text = models.CharField(max_length=80, default='Explore Our Services')
+    secondary_button_url = models.CharField(max_length=200, default='/services/')
+    feature_image = models.ImageField(upload_to='hero/', blank=True)
+    feature_image_alt = models.CharField(max_length=200, default='Seedlings and agriculture')
+    feature_title = models.CharField(max_length=160, default='Why farmers trust us')
+    feature_points = models.TextField(default='Affordable credit for agricultural growth\nPractical extension and farming advisory support\nQuality farm inputs and planting materials\nMarket access and trade support for products')
+    stat_one_value = models.CharField(max_length=40, default='6')
+    stat_one_label = models.CharField(max_length=80, default='Core services')
+    stat_two_value = models.CharField(max_length=40, default='100%')
+    stat_two_label = models.CharField(max_length=80, default='Member-centered')
+    stat_three_value = models.CharField(max_length=40, default='24/7')
+    stat_three_label = models.CharField(max_length=80, default='Support mindset')
+
+    @property
+    def feature_point_list(self):
+        return [point.strip() for point in self.feature_points.splitlines() if point.strip()]
+
+    @property
+    def stats(self):
+        return [
+            {'value': self.stat_one_value, 'label': self.stat_one_label},
+            {'value': self.stat_two_value, 'label': self.stat_two_label},
+            {'value': self.stat_three_value, 'label': self.stat_three_label},
+        ]
+
+    def __str__(self):
+        return 'Homepage hero'

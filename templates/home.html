@@ -3,17 +3,17 @@
 {% block title %}Home | Namutumba Golden Harvest SACCO{% endblock %}
 
 {% block content %}
-<section class="hero-section">
+<section class="hero-section{% if hero.background_image %} has-background-image{% endif %}"{% if hero.background_image %} style="--hero-background-image: url('{{ hero.background_image.url }}')"{% endif %}>
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-7">
-                <p class="eyebrow">Member-owned agricultural cooperative</p>
-                <h1>NAMUTUMBA GOLDEN HARVEST</h1>
-                <h2>Farmers and Traders SACCO</h2>
-                <p class="lead">Together We Grow, Together We Prosper.</p>
+                <p class="eyebrow">{{ hero.eyebrow|default:'Member-owned agricultural cooperative' }}</p>
+                <h1>{{ hero.title|default:'NAMUTUMBA GOLDEN HARVEST' }}</h1>
+                <h2>{{ hero.subtitle|default:'Farmers and Traders SACCO' }}</h2>
+                <p class="lead">{{ hero.tagline|default:'Together We Grow, Together We Prosper.' }}</p>
                 <div class="hero-actions">
-                    <a class="btn btn-primary btn-lg" href="{% url 'membership' %}">Become a Member</a>
-                    <a class="btn btn-outline-light btn-lg" href="{% url 'services' %}">Explore Our Services</a>
+                    <a class="btn btn-primary btn-lg" href="{{ hero.primary_button_url|default:'/membership/' }}">{{ hero.primary_button_text|default:'Become a Member' }}</a>
+                    <a class="btn btn-outline-light btn-lg" href="{{ hero.secondary_button_url|default:'/services/' }}">{{ hero.secondary_button_text|default:'Explore Our Services' }}</a>
                 </div>
                 <div class="hero-mini-stats">
                     {% for stat in stats %}
@@ -26,13 +26,17 @@
             </div>
             <div class="col-lg-5">
                 <div class="hero-card">
-                    <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=900&q=80" alt="Seedlings and agriculture" class="hero-image" />
-                    <h3>Why farmers trust us</h3>
+                    <img src="{% if hero.feature_image %}{{ hero.feature_image.url }}{% else %}https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=900&q=80{% endif %}" alt="{{ hero.feature_image_alt|default:'Seedlings and agriculture' }}" class="hero-image" />
+                    <h3>{{ hero.feature_title|default:'Why farmers trust us' }}</h3>
                     <ul>
-                        <li>Affordable credit for agricultural growth</li>
-                        <li>Practical extension and farming advisory support</li>
-                        <li>Quality farm inputs and planting materials</li>
-                        <li>Market access and trade support for products</li>
+                        {% if hero %}
+                            {% for point in hero.feature_point_list %}<li>{{ point }}</li>{% endfor %}
+                        {% else %}
+                            <li>Affordable credit for agricultural growth</li>
+                            <li>Practical extension and farming advisory support</li>
+                            <li>Quality farm inputs and planting materials</li>
+                            <li>Market access and trade support for products</li>
+                        {% endif %}
                     </ul>
                 </div>
             </div>

@@ -6,7 +6,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase, override_settings
 from PIL import Image
 
-from .models import GalleryImage, ProductCategory, SystemRole, UserRoleAssignment
+from .models import GalleryImage, HomePageHero, ProductCategory, SystemRole, UserRoleAssignment
 
 
 class RoleModelTests(TestCase):
@@ -39,6 +39,41 @@ class RoleModelTests(TestCase):
 
 
 class WebsiteAdminContentTests(TestCase):
+    def test_homepage_uses_admin_managed_hero_content(self):
+        HomePageHero.objects.create(
+            eyebrow='Local growers together',
+            title='A new homepage headline',
+            tagline='A new message for members',
+            feature_title='Our member promise',
+            feature_points='Fair loans\nPractical farm advice',
+            primary_button_text='Join our SACCO',
+            primary_button_url='/membership/',
+        )
+
+        response = self.client.get('/')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'A new homepage headline')
+        self.assertContains(response, 'A new message for members')
+        self.assertContains(response, 'Our member promise')
+        self.assertContains(response, 'Fair loans')
+        self.assertContains(response, 'Join our SACCO')
+
+    def test_homepage_hero_admin_has_local_image_pickers(self):
+        admin_user = get_user_model().objects.create_superuser(
+            username='hero-admin',
+            email='hero@example.com',
+            password='test-password-123',
+        )
+        self.client.force_login(admin_user)
+
+        response = self.client.get('/admin/core/homepagehero/add/')
+
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'name="background_image"')
+        self.assertContains(response, 'name="feature_image"')
+        self.assertContains(response, 'type="file"')
+
     def test_products_page_uses_active_admin_managed_products(self):
         ProductCategory.objects.create(
             name='Test crop',

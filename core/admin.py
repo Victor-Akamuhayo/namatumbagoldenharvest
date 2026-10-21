@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import ContactEnquiry, GalleryImage, MembershipApplication, NewsArticle, ProductCategory, SystemRole, UserRoleAssignment
+from .models import ContactEnquiry, GalleryImage, HomePageHero, MembershipApplication, NewsArticle, ProductCategory, SystemRole, UserRoleAssignment
 
 
 @admin.register(ContactEnquiry)
@@ -40,6 +40,32 @@ class ProductCategoryAdmin(admin.ModelAdmin):
     list_filter = ('is_active',)
     ordering = ('display_order', 'name')
     fields = ('name', 'image_file', 'image_url', 'image_alt', 'image_source', 'description', 'display_order', 'is_active')
+
+
+@admin.register(HomePageHero)
+class HomePageHeroAdmin(admin.ModelAdmin):
+    fieldsets = (
+        ('Hero content', {'fields': ('eyebrow', 'title', 'subtitle', 'tagline', 'background_image')}),
+        ('Buttons', {'fields': ('primary_button_text', 'primary_button_url', 'secondary_button_text', 'secondary_button_url')}),
+        ('Feature panel', {'fields': ('feature_image', 'feature_image_alt', 'feature_title', 'feature_points')}),
+        ('Statistics', {'fields': (
+            ('stat_one_value', 'stat_one_label'),
+            ('stat_two_value', 'stat_two_label'),
+            ('stat_three_value', 'stat_three_label'),
+        )}),
+    )
+
+    def has_add_permission(self, request):
+        return not HomePageHero.objects.exists() and super().has_add_permission(request)
+
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    def changelist_view(self, request, extra_context=None):
+        if not HomePageHero.objects.exists():
+            from django.shortcuts import redirect
+            return redirect('admin:core_homepagehero_add')
+        return super().changelist_view(request, extra_context)
 
 
 @admin.register(SystemRole)
